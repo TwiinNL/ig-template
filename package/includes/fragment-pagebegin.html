@@ -104,6 +104,9 @@
             <a class="navbar-brand hidden" href="{{site.data.fhir.path}}index.html">FHIR</a>
             <div class="nav-collapse collapse navbar-inverse-collapse">
               {% include {{ include.lang }}/menu.xml %}
+              <ul class="nav navbar-nav" id="twiin-nav-all">
+                <li><a no-external="true" href="https://fhir.twiin.nl/ig/">All Implementation Guides</a></li>
+              </ul>
             </div>  <!-- /.nav-collapse -->
 {% if dir=="ltr" %}
               {% include fragment-language.html lang=include.lang %}

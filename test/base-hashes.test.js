@@ -18,6 +18,8 @@ const EXPECTED = {
   "includes/fragment-pagebegin.html": "431379c0d2dabaa855c2d57f051b08e9f0d00cb23bdf70447845bf63170996f9",
   "includes/fragment-pageend.html": "03a71eab09e80310c362df7f44ef5494f80c1367f072e14adc8946b104e257f8",
   "layouts/layout-profile-history.html": "e220ce28a748f804046a543c90845321e01ad7889a69049edb5e6abdc1ff4e46",
+  "layouts/layout-ext.html": "04e2827288d918339c24b3e3a9391640059904e20dc3c2104f7a6450d44ee4b8",
+  "layouts/layout-profile.html": "242eb8942ed29b9aee201d31f9b2980567b32e40fdc3e25c9572ebe3f7d359b8",
   "content/assets/js/lang-redirects.js": "7ea6ae46a27c877dc47cc7ac0df4cc05f01b8debcbeec66db372da7577e92383",
 };
 

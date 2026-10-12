@@ -86,10 +86,27 @@ h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 }
 #twiin-logo { display: block; width: var(--logo-width); max-width: 100%; }
 #twiin-logo img { display: block; width: 100%; height: auto; }
-#ig-status { float: none; margin: 0; }
+#ig-status { float: none; margin: 0; height: auto; text-align: left; }
 #ig-status span { font-family: inherit; }
 
 /* Orange-red line above the dark grey navigation bar. */
 #segment-navbar { padding-top: 8px; }
 #stripe { background: var(--stripe-gradient); height: 8px; top: 0; }
 .navbar-inverse { background-image: none; background-color: var(--navbar-bg-color); border: 0; }
+
+/* Fixed link back to the overview of all Twiin IGs, right of the IG's own menu (menu.xml). */
+#twiin-nav-all { clear: both; float: none; }
+@media (min-width: 768px) {
+  #twiin-nav-all { clear: none; float: right; }
+}
+
+/* The clearfix ::before/::after of .container would be flex items of the header. */
+#segment-header > .container::before,
+#segment-header > .container::after { content: none; }
+
+/* Narrow screens: the base template lets long URLs in tables widen the page beyond the screen,
+   which pushes the menu button out of view. Wrap them instead. */
+@media (max-width: 767px) {
+  #segment-content table { max-width: 100%; }
+  #segment-content td, #segment-content th { overflow-wrap: anywhere; }
+}

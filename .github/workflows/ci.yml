@@ -18,7 +18,11 @@ jobs:
       BUNDLE_GEMFILE: ${{ github.workspace }}/.github/jekyll/Gemfile
       JEKYLL_NO_BUNDLER_REQUIRE: '1'
     steps:
+      # Full history: scripts/build.py takes the mtime of the archive entries from the last commit
+      # that changed package/.
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-java@v6
         with:
@@ -46,6 +50,10 @@ jobs:
       - name: Check overridden base files
         run: node test/base-hashes.test.js
 
+      - name: Test build script
+        run: python3 test/build.test.py
+
+      # Prints the sha-256; it must equal that of a local build of the same commit.
       - name: Build template package
         run: python3 scripts/build.py
 
@@ -76,7 +84,8 @@ jobs:
       - name: Test language redirect
         run: node test/lang-redirects.test.js
 
-      # Logo, Twiin CSS, release label, footer, one <h2 id="root"> on the history page, nld.svg in en/.
+      # Logo, Twiin CSS, release label, link to all IGs, footer, one <h2 id="root"> on the history
+      # page, nld.svg in en/.
       - name: Test house style and fixes in the output
         run: node test/output.test.js
 
