@@ -104,9 +104,11 @@ h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 #segment-header > .container::before,
 #segment-header > .container::after { content: none; }
 
-/* Narrow screens: the base template lets long URLs in tables widen the page beyond the screen,
-   which pushes the menu button out of view. Wrap them instead. */
-@media (max-width: 767px) {
-  #segment-content table { max-width: 100%; }
-  #segment-content td, #segment-content th { overflow-wrap: anywhere; }
-}
+/* Wide tables scroll inside their own container (assets/js/twiin-tables.js) instead of widening
+   the page. Text in tables never breaks inside a word, so columns keep at least the width of their
+   longest word. Outside tables long words (URLs) may break: break-word, unlike anywhere, does not
+   lower the minimum width that a table column is laid out with. */
+.twiin-table-scroll { overflow-x: auto; max-width: 100%; position: relative; }  /* relative: also clips the absolutely positioned filter of the profile tables */
+#segment-content { overflow-wrap: break-word; }
+#segment-content table, #segment-content table * { overflow-wrap: normal; word-break: normal; }
+

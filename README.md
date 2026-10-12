@@ -13,10 +13,11 @@ a GitHub release of this repository.
 | `package.json`, `config.json` | Template package; `base` is `fhir2.base.template`, no scripts or targets of its own. |
 | `includes/fragment-css.html` | Loads `assets/css/twiin.css` after the CSS of the base template. |
 | `includes/fragment-header.html` | Twiin logo in the page header. |
-| `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation, and on narrow screens (390 px) wrapping of long URLs in tables, which in the base template make the page wider than the screen and push the menu button out of view. The publish box is styled only through the CSS variables of the base template. |
+| `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation. Text in tables does not break inside words; long words outside tables (URLs) may break. The publish box is styled only through the CSS variables of the base template. |
 | `content/assets/images/twiin-logo.svg`, `content/assets/ico/favicon.png` | Logo and favicon, the same files as on fhir.twiin.nl (`ig/_twiin/`). |
 | `content/assets/fonts/` | Albert Sans 400 and 700, with `OFL.txt`. |
-| `includes/fragment-pageend.html` | Override: footer with the licence text of fhir.twiin.nl. |
+| `includes/fragment-pageend.html` | Override: footer with the licence text of fhir.twiin.nl, and loads `twiin-tables.js`. |
+| `content/assets/js/twiin-tables.js` | Puts every top-level table of the page content in its own container that scrolls horizontally, so wide tables (profile tables, constraints, bindings) do not make the page wider than the screen. In the base template they do, which also pushes the menu button out of view on a phone. |
 | `includes/fragment-pagebegin.html` | Override. Fix: shows the release label (`releaselabel` parameter) in the header; in 0.1.0 the label stays empty. Same change as in the IGs. Addition: a fixed navigation item "All Implementation Guides" (https://fhir.twiin.nl/ig/), in its own list after the IG's `menu.xml`, on the right on wide screens. |
 | `layouts/layout-profile-history.html` | Override, fix: one `<h2 id="root">` on profile history pages (HL7/ig-template-base2 commit 5b8c9667). |
 | `layouts/layout-profile.html`, `layouts/layout-ext.html` | Override, fix: without the stray `</p>` after the "Derived" paragraph, which made the profile and extension pages not well formed (rest of commit 5b8c9667, applied as is to the 0.1.0 files). |
@@ -30,14 +31,14 @@ a GitHub release of this repository.
 ```ini
 [IG]
 ig = input/ImplementationGuide-<id>.json
-template = twiin.base.template#0.1.0
+template = twiin.base.template#0.1.1
 ```
 
 The publisher finds the template in the local package cache. Download the release asset, check its
 sha-256 against the value in the release description, and unpack it there before the build:
 
 ```sh
-TEMPLATE_VERSION=0.1.0
+TEMPLATE_VERSION=0.1.1
 TEMPLATE_SHA256=<sha-256 from the release description>
 curl -sSfL -o template.tgz \
   "https://github.com/TwiinNL/ig-template/releases/download/v${TEMPLATE_VERSION}/twiin.base.template-${TEMPLATE_VERSION}.tgz"
@@ -59,7 +60,12 @@ history-heading entry in `known-errors.txt`.
   `fragment-pageend.html`, `layout-profile-history.html`, `layout-profile.html`, `layout-ext.html`,
   `lang-redirects.js`) is no longer the 0.1.0 version. The override must then be reviewed: copied again with the change reapplied, or
   removed.
-- `test/sample-ig/` is a small IG (one profile, jurisdiction NL) built with IG Publisher 3.0.0 and this
+- `node test/mobile.test.js` loads pages of the test IG at 390 px in headless Chromium (`$CHROME`,
+  or the first Chrome, Chromium, Edge or Brave found) and fails when the page is wider than the
+  screen, a content table is not in its own scrolling container, a table cell breaks inside words, or
+  a column is narrower than the longest word of its header.
+- `test/sample-ig/` is a small IG (two profiles, one with long element names, long URLs, a constraint
+  and a binding; jurisdiction NL) built with IG Publisher 3.0.0 and this
   template. After the build, `node test/output.test.js`, `node test/lang-redirects.test.js` and
   `python3 .github/scripts/check-qa.py` check the logo, CSS, release label, the "All Implementation
   Guides" item, footer, history heading, flag, redirect and that there are no QA errors other than those in `test/sample-ig/known-errors.txt`.
@@ -69,7 +75,7 @@ CI (`.github/workflows/ci.yml`) runs all of this. Locally:
 ```sh
 python3 scripts/build.py && scripts/install-local.sh
 cd test/sample-ig && java -jar input-cache/publisher.jar -ig . && cd ../..
-python3 test/build.test.py && node test/base-hashes.test.js && node test/output.test.js && node test/lang-redirects.test.js && python3 .github/scripts/check-qa.py
+python3 test/build.test.py && node test/base-hashes.test.js && node test/output.test.js && node test/mobile.test.js && node test/lang-redirects.test.js && python3 .github/scripts/check-qa.py
 ```
 
 ## Releasing
@@ -126,4 +132,11 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 - Profile history pages are not in the page list of the publisher, so their breadcrumb bar is empty
   and the heading has no section number (".11" instead of e.g. "2.1.1").
 - `searchform.html` has its own markup that the publisher reports as not well formed (warnings).
+
+## Changes
+
+- 0.1.1: wide tables scroll in their own container on narrow screens. 0.1.0 let table text break
+  anywhere (`overflow-wrap: anywhere`), which squeezed the profile tables into columns of one letter
+  on a phone, while the page still got wider than the screen.
+- 0.1.0: first release.
 

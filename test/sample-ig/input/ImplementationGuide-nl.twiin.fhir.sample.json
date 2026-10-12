@@ -46,6 +46,14 @@
         "name": "Sample Patient",
         "description": "Test profile on Patient.",
         "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/sample-long-names"
+        },
+        "name": "Sample Long Names",
+        "description": "Test profile with long element names and URLs.",
+        "exampleBoolean": false
       }
     ],
     "page": {

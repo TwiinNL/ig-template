@@ -90,5 +90,9 @@ jobs:
         run: node test/output.test.js
 
       # The publisher exits with 0 even when qa.html reports errors.
+      # Page width and table layout at 390 px, in the Chrome of the runner image.
+      - name: Test narrow screen layout
+        run: node test/mobile.test.js
+
       - name: Fail on unknown errors in QA report
         run: python3 .github/scripts/check-qa.py
