@@ -1,0 +1,8 @@
+build/
+test/sample-ig/output/
+test/sample-ig/temp/
+test/sample-ig/template/
+test/sample-ig/input-cache/
+test/sample-ig/fsh-generated/
+test/sample-ig/Requirements-fromNarrative.json
+.DS_Store
