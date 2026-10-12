@@ -1,6 +1,6 @@
 {
   "name": "twiin.base.template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "fhir.template",
   "description": "Twiin IG template: Twiin house style and fixes on top of fhir2.base.template 0.1.0",
   "author": "Twiin",
