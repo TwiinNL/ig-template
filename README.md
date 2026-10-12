@@ -76,7 +76,9 @@ node test/base-hashes.test.js && node test/output.test.js && node test/lang-redi
 1. Update `version` in `package/package.json` and the version in the `ig.ini` of `test/sample-ig`.
 2. Merge to `main` with a green CI.
 3. `python3 scripts/build.py` writes `build/twiin.base.template-<version>.tgz` and its sha-256. The
-   archive is built reproducibly (sorted entries, fixed timestamps and owners).
+   tar inside the archive is reproducible (sorted entries, fixed timestamps and owners); the gzip
+   compression can differ between zlib versions, so the `.tgz` itself can have another sha-256 on
+   another machine. The sha-256 of the asset that is uploaded is the one the IGs pin.
 4. Create the release with the archive as asset and the sha-256 in the description:
 
    ```sh

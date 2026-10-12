@@ -3,7 +3,8 @@
 
 The archive has the layout of an NPM/FHIR package (every file under package/) and is
 reproducible: sorted entries, fixed mtime, owner and mode, so the same sources always give the
-same sha-256. Run from the repo root: python3 scripts/build.py
+same tar. The gzip layer can differ between zlib versions, so compare `gunzip -c | sha256sum`
+across machines; the sha-256 of the released .tgz is the one to pin. Run from the repo root: python3 scripts/build.py
 """
 import gzip
 import hashlib
