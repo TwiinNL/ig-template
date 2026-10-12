@@ -6,3 +6,5 @@ test/sample-ig/input-cache/
 test/sample-ig/fsh-generated/
 test/sample-ig/Requirements-fromNarrative.json
 .DS_Store
+*.orig
+*.rej
