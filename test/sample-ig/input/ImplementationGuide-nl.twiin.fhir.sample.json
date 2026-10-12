@@ -1,0 +1,63 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "nl.twiin.fhir.sample",
+  "language": "en",
+  "url": "https://fhir.twiin.nl/ig/sample/ImplementationGuide/nl.twiin.fhir.sample",
+  "version": "0.1.0",
+  "name": "TwiinTemplateSample",
+  "title": "Twiin Template Sample",
+  "status": "draft",
+  "date": "2026-10-12",
+  "publisher": "Twiin",
+  "contact": [
+    {
+      "name": "Twiin",
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://fhir.twiin.nl"
+        }
+      ]
+    }
+  ],
+  "description": "Test IG for twiin.base.template. Not a specification.",
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "urn:iso:std:iso:3166",
+          "code": "NL"
+        }
+      ]
+    }
+  ],
+  "copyright": "Copyright Twiin. Licensed under CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0/",
+  "packageId": "nl.twiin.fhir.sample",
+  "license": "CC-BY-SA-4.0",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "definition": {
+    "resource": [
+      {
+        "reference": {
+          "reference": "StructureDefinition/sample-patient"
+        },
+        "name": "Sample Patient",
+        "description": "Test profile on Patient.",
+        "exampleBoolean": false
+      }
+    ],
+    "page": {
+      "nameUrl": "index.html",
+      "title": "Twiin Template Sample",
+      "generation": "markdown"
+    },
+    "parameter": [
+      {
+        "code": "releaselabel",
+        "value": "Draft – normative only when referenced by the Twiin afsprakenstelsel"
+      }
+    ]
+  }
+}

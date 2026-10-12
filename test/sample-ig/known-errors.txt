@@ -1,0 +1,2 @@
+# Publisher errors that are accepted, one per line, matched exactly as "<location>: <message>".
+# Empty on purpose: the template must build this IG without errors.

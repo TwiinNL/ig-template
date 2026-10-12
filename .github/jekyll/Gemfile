@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+# Jekyll for the IG Publisher (it calls `jekyll build` from the PATH). The lock file pins
+# the whole dependency tree, so a cached gem install is identical to a fresh one.
+gem "jekyll", "4.4.1"

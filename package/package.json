@@ -1,0 +1,12 @@
+{
+  "name": "twiin.base.template",
+  "version": "0.1.0",
+  "type": "fhir.template",
+  "description": "Twiin IG template: Twiin house style and fixes on top of fhir2.base.template 0.1.0",
+  "author": "Twiin",
+  "canonical": "https://fhir.twiin.nl/templates/twiin.base.template",
+  "base": "fhir2.base.template",
+  "dependencies": {
+    "fhir2.base.template": "0.1.0"
+  }
+}
