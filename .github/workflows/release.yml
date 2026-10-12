@@ -1,0 +1,61 @@
+name: Release template
+
+# Runs on a version tag, e.g. v0.1.0. The tag must equal "v" + version in package/package.json.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      # Full history: scripts/build.py takes the mtime of the archive entries from the last commit
+      # that changed package/.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check tag against package version
+        run: |
+          version=$(python3 -c 'import json; print(json.load(open("package/package.json"))["version"])')
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match version ${version} in package/package.json"
+            exit 1
+          fi
+          echo "VERSION=${version}" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Check overridden base files
+        run: node test/base-hashes.test.js
+
+      - name: Test build script
+        run: python3 test/build.test.py
+
+      - name: Build template package
+        run: |
+          python3 scripts/build.py
+          echo "SHA256=$(cut -d' ' -f1 build/twiin.base.template-${VERSION}.tgz.sha256)" >> "$GITHUB_ENV"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > notes.md <<NOTES
+          twiin.base.template ${VERSION}, based on fhir2.base.template#0.1.0.
+
+          Asset: \`twiin.base.template-${VERSION}.tgz\`
+
+          sha-256: \`${SHA256}\`
+
+          See README.md for how an IG uses this template.
+          NOTES
+          gh release create "${GITHUB_REF_NAME}" "build/twiin.base.template-${VERSION}.tgz" \
+            --title "twiin.base.template ${VERSION}" \
+            --notes-file notes.md \
+            --verify-tag
