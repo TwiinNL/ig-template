@@ -132,6 +132,10 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 - Profile history pages are not in the page list of the publisher, so their breadcrumb bar is empty
   and the heading has no section number (".11" instead of e.g. "2.1.1").
+- `searchform.html` loads its stylesheets, favicon and logos over `http://` from hl7.org. Browsers block the
+  stylesheets as mixed content on the https IG pages, so the search page is unstyled there. Switching the
+  URLs to `https://` makes the IG Publisher fail ("The <link> href ... is llegal"); to be addressed in a
+  later version (e.g. by shipping the files in the template).
 
 ## Changes
 
