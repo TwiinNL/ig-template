@@ -22,6 +22,7 @@ a GitHub release of this repository.
 | `layouts/layout-profile-history.html` | Override, fix: one `<h2 id="root">` on profile history pages (HL7/ig-template-base2 commit 5b8c9667). |
 | `layouts/layout-profile.html`, `layouts/layout-ext.html` | Override, fix: without the stray `</p>` after the "Derived" paragraph, which made the profile and extension pages not well formed (rest of commit 5b8c9667, applied as is to the 0.1.0 files). |
 | `content/assets/js/lang-redirects.js` | Override, fix: the version of HL7/ig-template-base2 `main`; the 0.1.0 version stops the redirect after the first language. |
+| `content/searchform.html` | Override, fix: `<img>` of the FHIR logo self-closed and the stray `</div>` lines removed (the base file has 2 before the content block and 5 after it), so the file is well formed. Nothing else changed. |
 | `content/assets/images/nld.svg` | Fix: the Dutch flag; the publisher writes it to `output/` but not to `output/en/`, where the pages look for it. |
 
 ## Using it in an IG
@@ -31,14 +32,14 @@ a GitHub release of this repository.
 ```ini
 [IG]
 ig = input/ImplementationGuide-<id>.json
-template = twiin.base.template#0.1.1
+template = twiin.base.template#0.1.2
 ```
 
 The publisher finds the template in the local package cache. Download the release asset, check its
 sha-256 against the value in the release description, and unpack it there before the build:
 
 ```sh
-TEMPLATE_VERSION=0.1.1
+TEMPLATE_VERSION=0.1.2
 TEMPLATE_SHA256=<sha-256 from the release description>
 curl -sSfL -o template.tgz \
   "https://github.com/TwiinNL/ig-template/releases/download/v${TEMPLATE_VERSION}/twiin.base.template-${TEMPLATE_VERSION}.tgz"
@@ -58,7 +59,7 @@ history-heading entry in `known-errors.txt`.
 - `node test/base-hashes.test.js` downloads the base template version named in `package/package.json`
   and fails when one of the base files this template overrides (`fragment-pagebegin.html`,
   `fragment-pageend.html`, `layout-profile-history.html`, `layout-profile.html`, `layout-ext.html`,
-  `lang-redirects.js`) is no longer the 0.1.0 version. The override must then be reviewed: copied again with the change reapplied, or
+  `searchform.html`, `lang-redirects.js`) is no longer the 0.1.0 version. The override must then be reviewed: copied again with the change reapplied, or
   removed.
 - `node test/mobile.test.js` loads pages of the test IG at 390 px in headless Chromium (`$CHROME`,
   or the first Chrome, Chromium, Edge or Brave found) and fails when the page is wider than the
@@ -131,10 +132,10 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 - Profile history pages are not in the page list of the publisher, so their breadcrumb bar is empty
   and the heading has no section number (".11" instead of e.g. "2.1.1").
-- `searchform.html` has its own markup that the publisher reports as not well formed (warnings).
 
 ## Changes
 
+- 0.1.2: `searchform.html` is well formed: the logo `<img>` is closed and the unbalanced `</div>`s are removed, so the publisher no longer warns about it. Layout unchanged.
 - 0.1.1: wide tables scroll in their own container on narrow screens. 0.1.0 let table text break
   anywhere (`overflow-wrap: anywhere`), which squeezed the profile tables into columns of one letter
   on a phone, while the page still got wider than the screen.

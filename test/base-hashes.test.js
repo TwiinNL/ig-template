@@ -20,6 +20,7 @@ const EXPECTED = {
   "layouts/layout-profile-history.html": "e220ce28a748f804046a543c90845321e01ad7889a69049edb5e6abdc1ff4e46",
   "layouts/layout-ext.html": "04e2827288d918339c24b3e3a9391640059904e20dc3c2104f7a6450d44ee4b8",
   "layouts/layout-profile.html": "242eb8942ed29b9aee201d31f9b2980567b32e40fdc3e25c9572ebe3f7d359b8",
+  "content/searchform.html": "29930f069d8bc26c64103da9a0d57c5b76995738d0a26c6cb32f9ea585b3aac0",
   "content/assets/js/lang-redirects.js": "7ea6ae46a27c877dc47cc7ac0df4cc05f01b8debcbeec66db372da7577e92383",
 };
 
