@@ -29,7 +29,8 @@ check(same(`${PAGES}/assets/images/nld.svg`, "package/content/assets/images/nld.
 let pages = 0;
 for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort()) {
   const html = fs.readFileSync(path.join(PAGES, name), "utf8");
-  // Header from fragment-pagebegin.html; searchform.html and the qa pages have their own header.
+  // Header from fragment-pagebegin.html; searchform.html (checked below) and the qa pages have their own header.
+  if (name === "searchform.html") continue;
   const status = html.match(/<div id="ig-status">[\s\S]*?<\/div>/);
   if (!status) continue;
   pages++;
@@ -43,6 +44,15 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort
   if (errors.length) check(false, `${PAGES}/${name}: ${errors.join("; ")}`);
 }
 check(pages > 0, `${pages} pages with the template header checked`);
+
+// searchform.html (and its en/ copy): no external resources, no unresolved placeholders, own CSS.
+for (const f of [`${OUT}/searchform.html`, `${OUT}/en/searchform.html`]) {
+  const html = fs.readFileSync(f, "utf8");
+  check(!/(src|href)="https?:\/\/[^"]*\.(css|png|jpg|svg|js|ico)"/.test(html), `${f}: no external stylesheet, image or script`);
+  check(!html.includes("{{"), `${f}: no unresolved placeholders`);
+  check(html.includes('href="assets/css/twiin.css"') && html.includes('src="assets/images/twiin-logo.svg"'), `${f}: Twiin CSS and logo`);
+  check(html.includes("The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0."), `${f}: Twiin footer`);
+}
 
 // History page: exactly one top level heading.
 const history = fs.existsSync(HISTORY) ? fs.readFileSync(HISTORY, "utf8") : "";
