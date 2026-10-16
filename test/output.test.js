@@ -50,6 +50,8 @@ for (const f of [`${OUT}/searchform.html`, `${OUT}/en/searchform.html`]) {
   const html = fs.readFileSync(f, "utf8");
   check(!/(src|href)="https?:\/\/[^"]*\.(css|png|jpg|svg|js|ico)"/.test(html), `${f}: no external stylesheet, image or script`);
   check(!html.includes("{{"), `${f}: no unresolved placeholders`);
+  // No ig-status: the publisher fills no placeholders in en/, so the release label cannot be shown on this page. IG tests that every page with #ig-status shows the label rely on its absence.
+  check(!/id=["']ig-status["']/.test(html), `${f}: no element with id ig-status`);
   check(html.includes('href="assets/css/twiin.css"') && html.includes('src="assets/images/twiin-logo.svg"'), `${f}: Twiin CSS and logo`);
   check(html.includes("The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0."), `${f}: Twiin footer`);
 }
