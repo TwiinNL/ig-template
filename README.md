@@ -32,14 +32,14 @@ a GitHub release of this repository.
 ```ini
 [IG]
 ig = input/ImplementationGuide-<id>.json
-template = twiin.base.template#0.1.4
+template = twiin.base.template#0.1.5
 ```
 
 The publisher finds the template in the local package cache. Download the release asset, check its
 sha-256 against the value in the release description, and unpack it there before the build:
 
 ```sh
-TEMPLATE_VERSION=0.1.4
+TEMPLATE_VERSION=0.1.5
 TEMPLATE_SHA256=<sha-256 from the release description>
 curl -sSfL -o template.tgz \
   "https://github.com/TwiinNL/ig-template/releases/download/v${TEMPLATE_VERSION}/twiin.base.template-${TEMPLATE_VERSION}.tgz"
@@ -135,6 +135,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
+- 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
 - 0.1.4: `searchform.html` has no `<div id="ig-status">` any more. The publisher fills no placeholders in `output/en/searchform.html`, so the release label cannot be shown there; IG tests that check the label on every page with `#ig-status` skip the page because of its absence. The rest of the header, the styling and the footer are unchanged.
 - 0.1.3: `searchform.html` is styled like the other pages and has no broken links: own CSS, Twiin logo and footer, no hl7.org resources, no placeholders. The search box is removed.
 - 0.1.2: `searchform.html` is well formed: the logo `<img>` is closed and the unbalanced `</div>`s are removed, so the publisher no longer warns about it. Layout unchanged.
