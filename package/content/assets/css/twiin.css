@@ -30,8 +30,12 @@
   --lichtgrijs-20: #F8F8F8;
   --grijs-40: #D1D7E0;
 
-  --logo-width: 260px;                    /* at least about 250 px (styleguide) */
-  --logo-clear: calc(var(--logo-width) * 0.2);
+  /* Logo with the line "Landelijk afsprakenstelsel ...", sized and spaced by the rules for the
+     wordmark (Huisstijlhandboek Twiin, Nov 2023, p. 4): wordmark at least 25 mm wide, clear space
+     20% of the wordmark width. The wordmark is 33.8% of the width of the logo. */
+  --wordmark-width: 100px;
+  --logo-width: calc(var(--wordmark-width) / 0.338);
+  --logo-clear: calc(var(--wordmark-width) * 0.2);
   --stripe-gradient: linear-gradient(90deg, var(--oranje), var(--rood));
 
   /* Variables of project.css in fhir2.base.template */
@@ -74,7 +78,7 @@ ul.dict li, table.dict td, table.dict td.structure, table.codes td, table.grid t
 body { color: var(--donkergrijs); }
 h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 
-/* Header: logo with a clear zone of 20% of its width; IG title and status on the right. */
+/* Header: logo with a clear zone of 20% of the wordmark width on every side; IG title and status on the right. */
 #segment-header > .container {
   display: flex;
   flex-wrap: wrap;
@@ -87,6 +91,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 #twiin-logo { display: block; width: var(--logo-width); max-width: 100%; }
 #twiin-logo img { display: block; width: 100%; height: auto; }
 #ig-status { float: none; margin: 0; height: auto; text-align: left; }
+#ig-status p { margin: 0; }  /* Bootstrap's bottom margin would put the text above the middle of the logo. */
 #ig-status span { font-family: inherit; }
 
 /* Orange-red line above the dark grey navigation bar. */
