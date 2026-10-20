@@ -16,7 +16,7 @@ a GitHub release of this repository.
 | `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation. Text in tables does not break inside words; long words outside tables (URLs) may break. The publish box is styled only through the CSS variables of the base template. |
 | `content/assets/images/twiin-logo.svg`, `content/assets/ico/favicon.png` | Logo and favicon, the same files as on fhir.twiin.nl (`ig/_twiin/`). |
 | `content/assets/fonts/` | Albert Sans 400 and 700, with `OFL.txt`. |
-| `includes/fragment-pageend.html` | Override: footer with the licence text of fhir.twiin.nl, and loads `twiin-tables.js`. |
+| `includes/fragment-pageend.html` | Override: footer with the licence statement of fhir.twiin.nl, and loads `twiin-tables.js`. |
 | `content/assets/js/twiin-tables.js` | Puts every top-level table of the page content in its own container that scrolls horizontally, so wide tables (profile tables, constraints, bindings) do not make the page wider than the screen. In the base template they do, which also pushes the menu button out of view on a phone. |
 | `includes/fragment-pagebegin.html` | Override. Fix: shows the release label (`releaselabel` parameter) in the header; in 0.1.0 the label stays empty. Same change as in the IGs. Addition: a fixed navigation item "All Implementation Guides" (https://fhir.twiin.nl/ig/), in its own list after the IG's `menu.xml`, on the right on wide screens. |
 | `layouts/layout-profile-history.html` | Override, fix: one `<h2 id="root">` on profile history pages (HL7/ig-template-base2 commit 5b8c9667). |
@@ -32,14 +32,14 @@ a GitHub release of this repository.
 ```ini
 [IG]
 ig = input/ImplementationGuide-<id>.json
-template = twiin.base.template#0.1.5
+template = twiin.base.template#0.1.6
 ```
 
 The publisher finds the template in the local package cache. Download the release asset, check its
 sha-256 against the value in the release description, and unpack it there before the build:
 
 ```sh
-TEMPLATE_VERSION=0.1.5
+TEMPLATE_VERSION=0.1.6
 TEMPLATE_SHA256=<sha-256 from the release description>
 curl -sSfL -o template.tgz \
   "https://github.com/TwiinNL/ig-template/releases/download/v${TEMPLATE_VERSION}/twiin.base.template-${TEMPLATE_VERSION}.tgz"
@@ -120,7 +120,7 @@ each override is reviewed:
 
 ## Licences
 
-- CSS and HTML code of this template: licence to be determined.
+- CSS and HTML code of this template: Copyright © Twiin, all rights reserved (`UNLICENSED`, see `LICENSE`).
 - Albert Sans: SIL Open Font License 1.1, see `package/content/assets/fonts/OFL.txt`.
 - The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0 or the code licence. It may be
   used in the Twiin IG packages and on fhir.twiin.nl.
@@ -135,6 +135,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
+- 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
 - 0.1.4: `searchform.html` has no `<div id="ig-status">` any more. The publisher fills no placeholders in `output/en/searchform.html`, so the release label cannot be shown there; IG tests that check the label on every page with `#ig-status` skip the page because of its absence. The rest of the header, the styling and the footer are unchanged.
 - 0.1.3: `searchform.html` is styled like the other pages and has no broken links: own CSS, Twiin logo and footer, no hl7.org resources, no placeholders. The search box is removed.
