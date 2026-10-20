@@ -117,3 +117,8 @@ h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 #segment-content { overflow-wrap: break-word; }
 #segment-content table, #segment-content table * { overflow-wrap: normal; word-break: normal; }
 
+
+/* Footer links: underlined, no external-link icons. The id selector (1,0,2) outranks project.css
+   p a[href^="https://"]:not([no-external^="true"]):after (0,2,3). */
+#segment-footer a { text-decoration: underline; }
+#segment-footer a::after { content: none; }  /* No external-link icons in the footer. */

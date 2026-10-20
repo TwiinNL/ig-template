@@ -40,7 +40,7 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort
   if (!html.includes('href="assets/css/twiin.css"')) errors.push("twiin.css not linked");
   if (!html.includes('src="assets/js/twiin-tables.js"')) errors.push("twiin-tables.js not loaded");
   if (!/<ul class="nav navbar-nav" id="twiin-nav-all">\s*<li><a no-external="true" href="https:\/\/fhir.twiin.nl\/ig\/">All Implementation Guides<\/a><\/li>/.test(html)) errors.push("navigation item All Implementation Guides missing");
-  if (!html.includes("The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0.")) errors.push("licence text missing from footer");
+  if (!html.includes("except the Twiin logo and the design and code of this site (all rights reserved).")) errors.push("licence text missing from footer");
   if (errors.length) check(false, `${PAGES}/${name}: ${errors.join("; ")}`);
 }
 check(pages > 0, `${pages} pages with the template header checked`);
@@ -53,7 +53,7 @@ for (const f of [`${OUT}/searchform.html`, `${OUT}/en/searchform.html`]) {
   // No ig-status: the publisher fills no placeholders in en/, so the release label cannot be shown on this page. IG tests that every page with #ig-status shows the label rely on its absence.
   check(!/id=["']ig-status["']/.test(html), `${f}: no element with id ig-status`);
   check(html.includes('href="assets/css/twiin.css"') && html.includes('src="assets/images/twiin-logo.svg"'), `${f}: Twiin CSS and logo`);
-  check(html.includes("The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0."), `${f}: Twiin footer`);
+  check(html.includes("except the Twiin logo and the design and code of this site (all rights reserved)."), `${f}: Twiin footer`);
 }
 
 // History page: exactly one top level heading.
