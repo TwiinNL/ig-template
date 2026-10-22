@@ -51,7 +51,7 @@
 {% assign canonicalHead = site.data.fhir.canonical | slice: 0, igPrefix.size %}
 {% if canonicalHead == igPrefix %}
 {% assign repoName = site.data.fhir.canonical | split: "/" | last %}
-          <a style="color:var(--footer-hyperlink-text-color)" href="https://github.com/TwiinNL/ig-{{repoName}}">Repository</a>
+          <a style="color:var(--footer-hyperlink-text-color)" href="https://github.com/TwiinNL/ig-{{repoName}}">Source repository</a>
 {% endif %}
           <br/>
           {{site.data.stringsBase[include.lang]['IGPackage'] | replace: "%PKG%", pkg | replace: "%FHIRVER%", fhirver}}

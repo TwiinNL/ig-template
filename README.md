@@ -135,7 +135,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
-- 0.1.7: Footer: "Repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
+- 0.1.7: Footer: "Source repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
 - 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
 - 0.1.4: `searchform.html` has no `<div id="ig-status">` any more. The publisher fills no placeholders in `output/en/searchform.html`, so the release label cannot be shown there; IG tests that check the label on every page with `#ig-status` skip the page because of its absence. The rest of the header, the styling and the footer are unchanged.
