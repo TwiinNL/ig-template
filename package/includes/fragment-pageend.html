@@ -47,6 +47,12 @@
 {% capture fhirver %}<a style="color: var(--footer-hyperlink-text-color)" href="{{site.data.fhir.path}}">FHIR {{site.data.fhir.version}}</a>{% endcapture %}
 {% capture gendate %}<span title="{{site.data.fhir.genDate}}">{{site.data.fhir.genDate | date: "%Y-%m-%d"}}</span>{% endcapture %}
           &#169; <a style="color:var(--footer-hyperlink-text-color)" href="https://www.twiin.nl">Twiin</a>. Content licensed under <a rel="license" style="color:var(--footer-hyperlink-text-color)" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, except the Twiin logo and the design and code of this site (all rights reserved). Third-party software keeps its own licence.
+{% assign igPrefix = "https://fhir.twiin.nl/ig/" %}
+{% assign canonicalHead = site.data.fhir.canonical | slice: 0, igPrefix.size %}
+{% if canonicalHead == igPrefix %}
+{% assign repoName = site.data.fhir.canonical | split: "/" | last %}
+          <a style="color:var(--footer-hyperlink-text-color)" href="https://github.com/TwiinNL/ig-{{repoName}}">Repository</a>
+{% endif %}
           <br/>
           {{site.data.stringsBase[include.lang]['IGPackage'] | replace: "%PKG%", pkg | replace: "%FHIRVER%", fhirver}}
           {{site.data.stringsBase[include.lang]['GeneratedDate'] | replace: "%DATE%", gendate}}
