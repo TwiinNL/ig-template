@@ -16,7 +16,7 @@ a GitHub release of this repository.
 | `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation. Text in tables does not break inside words; long words outside tables (URLs) may break. The publish box is styled only through the CSS variables of the base template. |
 | `content/assets/images/twiin-logo.svg`, `content/assets/ico/favicon.png` | Logo and favicon, the same files as on fhir.twiin.nl (`ig/_twiin/`). |
 | `content/assets/fonts/` | Albert Sans 400 and 700, with `OFL.txt`. |
-| `includes/fragment-pageend.html` | Override: footer with the licence statement of fhir.twiin.nl and a repository link derived from the canonical, and loads `twiin-tables.js`. |
+| `includes/fragment-pageend.html` | Override: footer with the licence statement of fhir.twiin.nl, a repository link derived from the canonical, a link to the version history (`<canonical>/history.html`) and an optional feedback link (see below), and loads `twiin-tables.js`. |
 | `content/assets/js/twiin-tables.js` | Puts every top-level table of the page content in its own container that scrolls horizontally, so wide tables (profile tables, constraints, bindings) do not make the page wider than the screen. In the base template they do, which also pushes the menu button out of view on a phone. |
 | `includes/fragment-pagebegin.html` | Override. Fix: shows the release label (`releaselabel` parameter) in the header; in 0.1.0 the label stays empty. Same change as in the IGs. Addition: a fixed navigation item "All Implementation Guides" (https://fhir.twiin.nl/ig/), in its own list after the IG's `menu.xml`, on the right on wide screens. |
 | `layouts/layout-profile-history.html` | Override, fix: one `<h2 id="root">` on profile history pages (HL7/ig-template-base2 commit 5b8c9667). |
@@ -32,14 +32,14 @@ a GitHub release of this repository.
 ```ini
 [IG]
 ig = input/ImplementationGuide-<id>.json
-template = twiin.base.template#0.1.7
+template = twiin.base.template#0.1.8
 ```
 
 The publisher finds the template in the local package cache. Download the release asset, check its
 sha-256 against the value in the release description, and unpack it there before the build:
 
 ```sh
-TEMPLATE_VERSION=0.1.7
+TEMPLATE_VERSION=0.1.8
 TEMPLATE_SHA256=<sha-256 from the release description>
 curl -sSfL -o template.tgz \
   "https://github.com/TwiinNL/ig-template/releases/download/v${TEMPLATE_VERSION}/twiin.base.template-${TEMPLATE_VERSION}.tgz"
@@ -49,6 +49,19 @@ tar -xzf template.tgz -C ~/.fhir/packages/twiin.base.template#${TEMPLATE_VERSION
 ```
 
 The base template `fhir2.base.template#0.1.0` is downloaded by the publisher as usual.
+
+### Feedback link (optional)
+
+The footer shows a link for proposing changes when the IG has `input/data/twiin.yml`:
+
+```yaml
+feedback:
+  url: https://github.com/TwiinNL/ig-<name>/issues   # any URL: issues, a form, a contact page
+  label: Propose a change                             # optional, this is the default
+```
+
+Without the file (or without `feedback.url`) there is no link. The FHIR Foundation hosting
+requirements ask for a link to propose changes or get involved in the footer.
 
 When an IG switches to this template, it can drop its own `input/includes/fragment-pagebegin.html`,
 `input/images/assets/js/lang-redirects.js` and `input/images/assets/images/nld.svg`, and the
@@ -135,6 +148,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
+- 0.1.8: Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
 - 0.1.7: Footer: "Source repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
 - 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
