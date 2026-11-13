@@ -45,7 +45,7 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort
   if (!html.includes("You may share and adapt the content, also commercially, if you give appropriate credit and share adaptations under the same licence.")) errors.push("licence explanation missing from footer");
   if (!html.includes('href="https://github.com/TwiinNL/ig-sample">Source repository</a>')) errors.push("repository link missing from footer");
   if (!html.includes('href="https://fhir.twiin.nl/ig/sample/history.html">Version history</a>')) errors.push("version history link missing from footer");
-  if (!html.includes('href="https://example.org/twiin/sample/feedback">Propose a change</a>')) errors.push("feedback link from input/data/twiin.yml missing from footer");
+  if (!/Feedback: use the feedback button on the page of the TA in the <a [^>]*href="https:\/\/afsprakenstelsel.twiin.nl">Twiin Afsprakenstelsel<\/a> that refers to this guide./.test(html)) errors.push("default feedback text missing from footer");
   if (errors.length) check(false, `${PAGES}/${name}: ${errors.join("; ")}`);
 }
 check(pages > 0, `${pages} pages with the template header checked`);
@@ -57,7 +57,7 @@ check(pages > 0, `${pages} pages with the template header checked`);
   check(html.includes('href="https://afsprakenstelsel.twiin.nl/normatief/ta150/6-governance"'), "index.html: link to Governance chapter");
   check(html.includes("werkgroep TA's"), "index.html: participation through werkgroep TA's");
   check(html.includes('href="mailto:info@twiin.nl"'), "index.html: contact address for joining");
-  check(html.includes('href="https://example.org/twiin/sample/feedback">Propose a change</a>'), "index.html: feedback link from input/data/twiin.yml");
+  check(/To give feedback on this guide, use the feedback button on the page of the TA in the <a [^>]*href="https:\/\/afsprakenstelsel.twiin.nl"[^>]*>Twiin Afsprakenstelsel<\/a> that refers to this guide./.test(html), "index.html: default feedback text");
   check(!html.includes("{%") && !html.includes("{{"), "index.html: no unresolved Liquid");
 }
 

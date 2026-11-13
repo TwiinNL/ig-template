@@ -54,9 +54,11 @@
           <a style="color:var(--footer-hyperlink-text-color)" href="https://github.com/TwiinNL/ig-{{repoName}}">Source repository</a>
 {% endif %}
           <a style="color:var(--footer-hyperlink-text-color)" href="{{site.data.fhir.canonical}}/history.html">Version history</a>
-{% comment %} Optional per IG: input/data/twiin.yml with feedback.url (and feedback.label). Without it, no link. {% endcomment %}
+{% comment %} Feedback: input/data/twiin.yml with feedback.url (and feedback.label) gives a link; without it, the feedback button on the TA page of the Afsprakenstelsel. {% endcomment %}
 {% if site.data.twiin.feedback.url %}
           <a style="color:var(--footer-hyperlink-text-color)" href="{{site.data.twiin.feedback.url}}">{% if site.data.twiin.feedback.label %}{{site.data.twiin.feedback.label}}{% else %}Propose a change{% endif %}</a>
+{% else %}
+          <br/>Feedback: use the feedback button on the page of the TA in the <a style="color:var(--footer-hyperlink-text-color)" href="https://afsprakenstelsel.twiin.nl">Twiin Afsprakenstelsel</a> that refers to this guide.
 {% endif %}
           <br/>
           {{site.data.stringsBase[include.lang]['IGPackage'] | replace: "%PKG%", pkg | replace: "%FHIRVER%", fhirver}}

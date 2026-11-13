@@ -12,12 +12,12 @@ a GitHub release of this repository.
 |---|---|
 | `package.json`, `config.json` | Template package; `base` is `fhir2.base.template`, no scripts or targets of its own. |
 | `includes/fragment-css.html` | Loads `assets/css/twiin.css` after the CSS of the base template. |
-| `includes/twiin-maintenance.md` | Text for the section "Maintenance and participation" on the home page of an IG: maintained by Twiin, normative only through a release of the Afsprakenstelsel, decisions by the Twiin Bestuur after advice of the overlegtafels (links to chapter 6 of Afsprakenstelsel 1.5.0), participation through the werkgroep TA's (contact info@twiin.nl), and the feedback link of `input/data/twiin.yml` when set. Include it in `index.md` under a `###` heading: `{% include twiin-maintenance.md %}`. |
+| `includes/twiin-maintenance.md` | Text for the section "Maintenance and participation" on the home page of an IG: maintained by Twiin, normative only through a release of the Afsprakenstelsel, decisions by the Twiin Bestuur after advice of the overlegtafels (links to chapter 6 of Afsprakenstelsel 1.5.0), participation through the werkgroep TA's (contact info@twiin.nl), and how to give feedback (see Feedback below). Include it in `index.md` under a `###` heading: `{% include twiin-maintenance.md %}`. |
 | `includes/fragment-header.html` | Page header: Twiin logo on the left, FHIR icon (link to the FHIR version of the IG) at the far right with the IG title and status (from `fragment-pagebegin.html`) directly to its left. On narrow screens the logo and the icon share the first row and the title and status go below them. |
 | `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation. Text in tables does not break inside words; long words outside tables (URLs) may break. The publish box is styled only through the CSS variables of the base template. |
 | `content/assets/images/twiin-logo.svg`, `content/assets/ico/favicon.png` | Logo and favicon, the same files as on fhir.twiin.nl (`ig/_twiin/`). |
 | `content/assets/fonts/` | Albert Sans 400 and 700, with `OFL.txt`. |
-| `includes/fragment-pageend.html` | Override: footer with the licence statement of fhir.twiin.nl, a repository link derived from the canonical, a link to the version history (`<canonical>/history.html`) and an optional feedback link (see below), and loads `twiin-tables.js`. |
+| `includes/fragment-pageend.html` | Override: footer with the licence statement of fhir.twiin.nl, a repository link derived from the canonical, a link to the version history (`<canonical>/history.html`) and how to give feedback (see Feedback below), and loads `twiin-tables.js`. |
 | `content/assets/js/twiin-tables.js` | Puts every top-level table of the page content in its own container that scrolls horizontally, so wide tables (profile tables, constraints, bindings) do not make the page wider than the screen. In the base template they do, which also pushes the menu button out of view on a phone. |
 | `includes/fragment-pagebegin.html` | Override. Fix: shows the release label (`releaselabel` parameter) in the header; in 0.1.0 the label stays empty. Same change as in the IGs. Addition: a fixed navigation item "All Implementation Guides" (https://fhir.twiin.nl/ig/), in its own list after the IG's `menu.xml`, on the right on wide screens. |
 | `layouts/layout-profile-history.html` | Override, fix: one `<h2 id="root">` on profile history pages (HL7/ig-template-base2 commit 5b8c9667). |
@@ -51,9 +51,12 @@ tar -xzf template.tgz -C ~/.fhir/packages/twiin.base.template#${TEMPLATE_VERSION
 
 The base template `fhir2.base.template#0.1.0` is downloaded by the publisher as usual.
 
-### Feedback link (optional)
+### Feedback
 
-The footer shows a link for proposing changes when the IG has `input/data/twiin.yml`:
+By default the footer and the section "Maintenance and participation" say that feedback is given with
+the feedback button on the page of the TA in the Twiin Afsprakenstelsel that refers to the guide, with
+a link to https://afsprakenstelsel.twiin.nl. An IG can replace this with its own link in
+`input/data/twiin.yml`:
 
 ```yaml
 feedback:
@@ -61,12 +64,7 @@ feedback:
   label: Propose a change                             # optional, this is the default
 ```
 
-Without the file (or without `feedback.url`) there is no link. The FHIR Foundation hosting
-requirements ask for a link to propose changes or get involved in the footer.
-
-When an IG switches to this template, it can drop its own `input/includes/fragment-pagebegin.html`,
-`input/images/assets/js/lang-redirects.js` and `input/images/assets/images/nld.svg`, and the
-history-heading entry in `known-errors.txt`.
+The FHIR Foundation hosting requirements ask for a link to propose changes or get involved in the footer.
 
 ## Tests
 
@@ -150,7 +148,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
-- 0.1.8: Footer: one sentence on what CC BY-SA 4.0 allows (FHIR Foundation hosting requirement 7c). Header: Twiin logo on the left, IG title and status and the FHIR icon on the right (FHIR Foundation hosting requirement 7b). Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
+- 0.1.8: Footer: one sentence on what CC BY-SA 4.0 allows (FHIR Foundation hosting requirement 7c). Header: Twiin logo on the left, IG title and status and the FHIR icon on the right (FHIR Foundation hosting requirement 7b). Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; feedback: by default the feedback button on the TA page of the Afsprakenstelsel, or a link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
 - 0.1.7: Footer: "Source repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
 - 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
