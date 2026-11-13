@@ -134,6 +134,7 @@ each override is reviewed:
 
 ## Licences
 
+- Content of the Twiin IGs: CC BY-SA 4.0, the standard licence decided by Twiin. The footer states this licence for every IG; an IG with another licence cannot use this template unchanged.
 - CSS and HTML code of this template: Copyright © Twiin, all rights reserved (`UNLICENSED`, see `LICENSE`).
 - Albert Sans: SIL Open Font License 1.1, see `package/content/assets/fonts/OFL.txt`.
 - The Twiin logo belongs to Twiin and is not covered by CC BY-SA 4.0 or the code licence. It may be
@@ -149,7 +150,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
-- 0.1.8: Header: Twiin logo on the left, IG title and status and the FHIR icon on the right (FHIR Foundation hosting requirement 7b). Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
+- 0.1.8: Footer: one sentence on what CC BY-SA 4.0 allows (FHIR Foundation hosting requirement 7c). Header: Twiin logo on the left, IG title and status and the FHIR icon on the right (FHIR Foundation hosting requirement 7b). Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
 - 0.1.7: Footer: "Source repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
 - 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
