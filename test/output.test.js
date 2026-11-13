@@ -37,6 +37,7 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort
   const errors = [];
   if (!status[0].includes(LABEL)) errors.push("release label not in the page header");
   if (!html.includes('src="assets/images/twiin-logo.svg"')) errors.push("logo missing");
+  if (!/<a id="twiin-fhir-icon"[^>]*href="http:\/\/hl7.org\/fhir\/R4\/index.html"[^>]*><img src="assets\/ico\/icon-fhir-144.png"/.test(html)) errors.push("FHIR icon missing from header");
   if (!html.includes('href="assets/css/twiin.css"')) errors.push("twiin.css not linked");
   if (!html.includes('src="assets/js/twiin-tables.js"')) errors.push("twiin-tables.js not loaded");
   if (!/<ul class="nav navbar-nav" id="twiin-nav-all">\s*<li><a no-external="true" href="https:\/\/fhir.twiin.nl\/ig\/">All Implementation Guides<\/a><\/li>/.test(html)) errors.push("navigation item All Implementation Guides missing");

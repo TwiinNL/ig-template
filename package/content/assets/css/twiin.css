@@ -78,21 +78,34 @@ ul.dict li, table.dict td, table.dict td.structure, table.codes td, table.grid t
 body { color: var(--donkergrijs); }
 h1, h2, h3, h4, h5, h6 { color: var(--donkergrijs); font-weight: 700; }
 
-/* Header: logo with a clear zone of 20% of the wordmark width on every side; IG title and status on the right. */
+/* Header: Twiin logo on the left; on the right the IG title and status, right-aligned, directly
+   against the FHIR icon at the far right. The logo keeps a clear zone of 20% of the wordmark width
+   on every side (the padding, the margin of the logo and the row gap). On narrow screens the logo
+   and the FHIR icon share the first row and the title and status go below them. */
 #segment-header > .container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-areas: "logo . status fhir";
   align-items: center;
-  justify-content: space-between;
-  gap: var(--logo-clear);
+  column-gap: 0;
+  row-gap: var(--logo-clear);
   padding: var(--logo-clear);
   height: auto;
 }
-#twiin-logo { display: block; width: var(--logo-width); max-width: 100%; }
+#twiin-logo { grid-area: logo; display: block; width: var(--logo-width); max-width: 100%; margin-right: var(--logo-clear); }
 #twiin-logo img { display: block; width: 100%; height: auto; }
-#ig-status { float: none; margin: 0; height: auto; text-align: left; }
+#twiin-fhir-icon { grid-area: fhir; display: block; }
+#twiin-fhir-icon img { display: block; height: 48px; width: auto; }
+#ig-status { grid-area: status; min-width: 0; float: none; margin: 0 12px 0 0; height: auto; text-align: right; }
 #ig-status p { margin: 0; }  /* Bootstrap's bottom margin would put the text above the middle of the logo. */
 #ig-status span { font-family: inherit; }
+@media (max-width: 767px) {
+  #segment-header > .container {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo . fhir" "status status status";
+  }
+  #ig-status { margin: 0; text-align: left; }
+}
 
 /* Orange-red line above the dark grey navigation bar. */
 #segment-navbar { padding-top: 8px; }

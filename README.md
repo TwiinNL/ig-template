@@ -13,7 +13,7 @@ a GitHub release of this repository.
 | `package.json`, `config.json` | Template package; `base` is `fhir2.base.template`, no scripts or targets of its own. |
 | `includes/fragment-css.html` | Loads `assets/css/twiin.css` after the CSS of the base template. |
 | `includes/twiin-maintenance.md` | Text for the section "Maintenance and participation" on the home page of an IG: maintained by Twiin, normative only through a release of the Afsprakenstelsel, decisions by the Twiin Bestuur after advice of the overlegtafels (links to chapter 6 of Afsprakenstelsel 1.5.0), participation through the werkgroep TA's (contact info@twiin.nl), and the feedback link of `input/data/twiin.yml` when set. Include it in `index.md` under a `###` heading: `{% include twiin-maintenance.md %}`. |
-| `includes/fragment-header.html` | Twiin logo in the page header. |
+| `includes/fragment-header.html` | Page header: Twiin logo on the left, FHIR icon (link to the FHIR version of the IG) at the far right with the IG title and status (from `fragment-pagebegin.html`) directly to its left. On narrow screens the logo and the icon share the first row and the title and status go below them. |
 | `content/assets/css/twiin.css` | Colours, Albert Sans, header layout, orange-red line, dark grey navigation. Text in tables does not break inside words; long words outside tables (URLs) may break. The publish box is styled only through the CSS variables of the base template. |
 | `content/assets/images/twiin-logo.svg`, `content/assets/ico/favicon.png` | Logo and favicon, the same files as on fhir.twiin.nl (`ig/_twiin/`). |
 | `content/assets/fonts/` | Albert Sans 400 and 700, with `OFL.txt`. |
@@ -149,7 +149,7 @@ Not fixed here, the same with `fhir2.base.template#0.1.0` alone:
 
 ## Changes
 
-- 0.1.8: Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
+- 0.1.8: Header: Twiin logo on the left, IG title and status and the FHIR icon on the right (FHIR Foundation hosting requirement 7b). Include `twiin-maintenance.md` for the section "Maintenance and participation" on the home page. Footer: "Version history" link to `<canonical>/history.html`; optional feedback link from `input/data/twiin.yml` (`feedback.url`, `feedback.label`).
 - 0.1.7: Footer: "Source repository" link to `https://github.com/TwiinNL/ig-<last segment of the canonical>`, shown only when the canonical starts with `https://fhir.twiin.nl/ig/`.
 - 0.1.6: Footer: licence statement (design and code all rights reserved), link to www.twiin.nl, links underlined without external-link icons; package marked UNLICENSED.
 - 0.1.5: Header: logo sized and spaced by the handbook rules for the wordmark; IG status text centred on the logo.
