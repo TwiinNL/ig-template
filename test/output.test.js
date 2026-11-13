@@ -48,6 +48,17 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html")).sort
 }
 check(pages > 0, `${pages} pages with the template header checked`);
 
+// Home page: section "Maintenance and participation" from includes/twiin-maintenance.md.
+{
+  const html = fs.readFileSync(`${PAGES}/index.html`, "utf8");
+  check(html.includes("This implementation guide is maintained by Twiin."), "index.html: maintenance text");
+  check(html.includes('href="https://afsprakenstelsel.twiin.nl/normatief/ta150/6-governance"'), "index.html: link to Governance chapter");
+  check(html.includes("werkgroep TA's"), "index.html: participation through werkgroep TA's");
+  check(html.includes('href="mailto:info@twiin.nl"'), "index.html: contact address for joining");
+  check(html.includes('href="https://example.org/twiin/sample/feedback">Propose a change</a>'), "index.html: feedback link from input/data/twiin.yml");
+  check(!html.includes("{%") && !html.includes("{{"), "index.html: no unresolved Liquid");
+}
+
 // searchform.html (and its en/ copy): no external resources, no unresolved placeholders, own CSS.
 for (const f of [`${OUT}/searchform.html`, `${OUT}/en/searchform.html`]) {
   const html = fs.readFileSync(f, "utf8");
